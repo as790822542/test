@@ -1,0 +1,33 @@
+eureka:
+  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8769
+spring:
+  application:
+    name: service-zuul
+# 添加ribbon的超时时间设置
+#ribbon:
+#  ReadTimeout: 3000
+#  ConnectTimeout: 3000
+zuul:
+#  host:
+#    maxTotalConnections: 10000
+#    maxPerRouteConnections: 10000
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: service-ribbon
+    api-b:
+      path: /api-b/**
+      serviceId: service-feign
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeout-in-milliseconds: 3000
